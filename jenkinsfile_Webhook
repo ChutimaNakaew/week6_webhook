@@ -1,0 +1,42 @@
+pipeline {
+   agent any
+    stages {
+         stage('pre -build') {
+            steps {
+                sh 'echo Pre-build'
+                sh 'python3 --version'
+            }
+        }
+        stage('build') {
+            steps {
+                
+                echo 'build in progress'
+                sh 'python3  Webhook/main.py'
+            }
+        }
+        stage('build success') {
+            steps {
+                sh 'echo build is success'
+            }
+        }
+         stage('good job') {
+            steps {
+                sh 'echo good job! bye bye'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Hi dev!'
+        }
+        success {
+            echo 'running is success'
+        }
+        failure {
+            echo 'Oh it is error'
+        }
+        changed {
+            echo 'You changed sth'
+        }
+    }
+}
